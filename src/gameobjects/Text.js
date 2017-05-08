@@ -139,7 +139,6 @@ Phaser.Text = function (game, x, y, text, style) {
      */
     this.splitRegExp = /(?:\r\n|\r|\n)/;
 
-
     /** The maximum number of characters that can be set.
     * @property {number} characterLimitSize
     */
@@ -316,9 +315,12 @@ Phaser.Text.prototype.setStyle = function (style, update) {
     newStyle.font = style.font || 'bold 20pt Arial';
     newStyle.backgroundColor = style.backgroundColor || null;
     newStyle.fill = style.fill || 'black';
-    newStyle.align = style.align.toLowerCase() || 'left';
-    newStyle.boundsAlignH = style.boundsAlignH.toLowerCase() || 'left';
-    newStyle.boundsAlignV = style.boundsAlignV.toLowerCase() || 'top';
+    newStyle.align = style.align || 'left'; // Change: toLowerCase was erroring if align was undefined. Set so it doesnt set toLowerCase until after its set to default.
+    newStyle.align.toLowerCase();
+    newStyle.boundsAlignH = style.boundsAlignH || 'left'; // Same as above
+    newStyle.boundsAlignH.toLowerCase();
+    newStyle.boundsAlignV = style.boundsAlignV || 'top'; // Same as above
+    newStyle.boundsAlignV.toLowerCase();
     newStyle.stroke = style.stroke || 'black'; //provide a default, see: https://github.com/GoodBoyDigital/pixi.js/issues/136
     newStyle.strokeThickness = style.strokeThickness || 0;
     newStyle.wordWrap = style.wordWrap || false;
